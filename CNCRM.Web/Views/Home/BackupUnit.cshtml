@@ -1,0 +1,175 @@
+﻿
+
+<div class="container shadow-lg mb-4 p-3 rounded bg-light" ng-controller="BackupUnitController" ng-init="init();getCustomerData()">
+    <h5>Create a New Backup Unit</h5>
+    <small class="text text-muted">You can create a new user in this section.</small>
+    <hr />
+    <div class="col-12">
+        <table class="w-100">
+            <tr>
+                <td class="w-25"><label for="txtBrand" class="form-control-sm">Brand:</label></td>
+                <td><input type="text" id="txtBrand" ng-model="backupUnit.brand" class="form-control form-control-sm" /></td>
+            </tr>
+            <tr>
+                <td><label for="txtModel" class="form-control-sm">Model:</label></td>
+                <td><input type="text" id="txtModel" ng-model="backupUnit.model" class="form-control form-control-sm" /></td>
+            </tr>
+            <tr>
+                <td><label for="txtSerial" class="form-control-sm">Serial Number:</label></td>
+                <td><input type="text" id="txtSerial" ng-model="backupUnit.serialNumber" class="form-control form-control-sm" /></td>
+            </tr>
+            <tr>
+                <td><label for="txtCpu" class="form-control-sm">Cpu:</label></td>
+                <td><input type="text" id="txtCpu" ng-model="backupUnit.cpu" class="form-control form-control-sm" /></td>
+            </tr>
+            <tr>
+                <td><label for="txtRam" class="form-control-sm">Ram:</label></td>
+                <td><input type="text" id="txtRam" ng-model="backupUnit.ram" class="form-control form-control-sm" /></td>
+            </tr>
+            <tr>
+                <td><label for="txtDiskModel" class="form-control-sm">Disk Model:</label></td>
+                <td><input type="text" id="txtDiskModel" ng-model="backupUnit.diskModel" class="form-control form-control-sm" /></td>
+            </tr>
+            <tr>
+                <td><label for="txtDiskCapacity" class="form-control-sm">Disk Capacity:</label></td>
+                <td><input type="text" id="txtDiskCapacity" ng-model="backupUnit.diskCapacity" class="form-control form-control-sm" /></td>
+            </tr>
+            <tr>
+                <td><label for="txtTotalDiskSlot" class="form-control-sm">Total Disk Slot:</label></td>
+                <td><input type="text" id="txtTotalDiskSlot" ng-model="backupUnit.totalDiskSlot" class="form-control form-control-sm" /></td>
+            </tr>
+            <tr>
+                <td><label for="txtRaidType" class="form-control-sm">Raid Type:</label></td>
+                <td><input type="text" id="txtRaidType" ng-model="backupUnit.raidType" class="form-control form-control-sm" /></td>
+            </tr>
+            <tr>
+                <td><label for="txtRaidUpTo" class="form-control-sm">Raid Up To (TB):</label></td>
+                <td><input type="text" id="txtRaidUpTo" ng-model="backupUnit.raidUpTo" class="form-control form-control-sm" /></td>
+            </tr>
+            <tr >
+                <td><label for="cbxCustomerId" class="form-control-sm">Customer:</label></td>
+                <td>
+                    <select ng-model="backupUnitCustomerCompanyName" ng-options="customer.companyName for customer in customerList">
+                        <option value="" disabled>...</option>
+                    </select>
+                </td>
+            </tr>
+        </table>
+        <div class="container bg-light mt-5">
+            <div class="col-md-12 text-center">
+                <div class="btn-group" ng-controller="BackupUnitController">
+                    <button type="submit" ng-click="addBackupUnit()" class="btn btn-primary btn-sm">Save</button>
+                </div>
+                <div class="btn-group">
+                    <a href="/Home/Layout" class="btn btn-danger btn-sm">Cancel</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mt-5">
+            <div class="container">
+                <h5>Backup Units List</h5>
+                <small class="text text-muted">You can list all customer in this section.</small>
+                <hr />
+                <table class="table table-hover table-sm">
+                    <tr>
+                        <th>Id</th>
+                        <th>Brand</th>
+                        <th>Model</th>
+                        <th>Serial Number</th>
+                        <th>Cpu</th>
+                        <th>Ram</th>
+                        <th>Update</th>
+                        <th>Delete</th>
+                    </tr>
+                    <tr ng-repeat="backupUnit in backupUnitList">
+                        <td>{{backupUnit.id}}</td>
+                        <td>{{backupUnit.brand}}</td>
+                        <td>{{backupUnit.model}}</td>
+                        <td>{{backupUnit.serialNumber}}</td>
+                        <td>{{backupUnit.cpu}}</td>
+                        <td>{{backupUnit.ram}}</td>
+                        <td><button class="btn btn-outline-primary btn-sm" ng-click="fetchUpdateDataForBackupUnit(backupUnit)">Update</button></td>
+                        <td><button class="btn btn-outline-danger btn-sm" ng-confirm-click="" confirmed-click="deleteBackupUnit(backupUnit.id)">Delete</button></td>
+                    </tr>
+                </table>
+                <div class="row">
+                    <div class="col-2">
+                        <span class="text-muted form-text">Hide Update Section</span>
+                    </div>
+                    <div class="col-10">
+                        <input type="checkbox" class="form-check-input" ng-model="enableUserUpdateModal" />
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mt-5">
+            <div class="container" ng-hide="enableUserUpdateModal">
+                <h5>Update Backup Unit</h5>
+                <small class="text text-muted">You can update the backup unit in this section.</small>
+                <hr />
+                <table class="w-100">
+                    <tr>
+                        <td class="w-25"><label for="txtBrand" class="form-control-sm">Brand:</label></td>
+                        <td><input type="text" id="txtBrand" ng-model="backupUnits.brand" class="form-control form-control-sm" /></td>
+                    </tr>
+                    <tr>
+                        <td><label for="txtModel" class="form-control-sm">Model:</label></td>
+                        <td><input type="text" id="txtModel" ng-model="backupUnits.model" class="form-control form-control-sm" /></td>
+                    </tr>
+                    <tr>
+                        <td><label for="txtSerial" class="form-control-sm">Serial Number:</label></td>
+                        <td><input type="text" id="txtSerial" ng-model="backupUnits.serialNumber" class="form-control form-control-sm" /></td>
+                    </tr>
+                    <tr>
+                        <td><label for="txtCpu" class="form-control-sm">Cpu:</label></td>
+                        <td><input type="text" id="txtCpu" ng-model="backupUnits.cpu" class="form-control form-control-sm" /></td>
+                    </tr>
+                    <tr>
+                        <td><label for="txtRam" class="form-control-sm">Ram:</label></td>
+                        <td><input type="text" id="txtRam" ng-model="backupUnits.ram" class="form-control form-control-sm" /></td>
+                    </tr>
+                    <tr>
+                        <td><label for="txtDiskModel" class="form-control-sm">Disk Model:</label></td>
+                        <td><input type="text" id="txtDiskModel" ng-model="backupUnits.diskModel" class="form-control form-control-sm" /></td>
+                    </tr>
+                    <tr>
+                        <td><label for="txtDiskCapacity" class="form-control-sm">Disk Capacity:</label></td>
+                        <td><input type="text" id="txtDiskCapacity" ng-model="backupUnits.diskCapacity" class="form-control form-control-sm" /></td>
+                    </tr>
+                    <tr>
+                        <td><label for="txtTotalDiskSlot" class="form-control-sm">Total Disk Slot:</label></td>
+                        <td><input type="text" id="txtTotalDiskSlot" ng-model="backupUnits.totalDiskSlot" class="form-control form-control-sm" /></td>
+                    </tr>
+                    <tr>
+                        <td><label for="txtRaidType" class="form-control-sm">Raid Type:</label></td>
+                        <td><input type="text" id="txtRaidType" ng-model="backupUnits.raidType" class="form-control form-control-sm" /></td>
+                    </tr>
+                    <tr>
+                        <td><label for="txtRaidUpTo" class="form-control-sm">Raid Up To (TB):</label></td>
+                        <td><input type="text" id="txtRaidUpTo" ng-model="backupUnits.raidUpTo" class="form-control form-control-sm" /></td>
+                    </tr>
+                    <tr>
+                        <td><label for="cbxCustomerId" class="form-control-sm">Customer:</label></td>
+                        <td>
+                            <select ng-model="backupUnitCustomerCompanyName" ng-options="customer.companyName for customer in customerList">
+                                <option value="" disabled>...</option>
+                            </select>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="container bg-light mt-5">
+            <div class="col-md-12 text-center">
+                <div class="btn-group" ng-controller="BackupUnitController">
+                    <button type="submit" ng-click="updateBackupUnit()" class="btn btn-primary btn-sm">Update</button>
+                </div>
+                <div class="btn-group">
+                    <a href="/Home/Layout" class="btn btn-danger btn-sm">Cancel</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

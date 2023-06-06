@@ -1,0 +1,180 @@
+﻿<div class="container shadow-lg mb-4 p-3 rounded bg-white" ng-controller="CustomerController" ng-init="init()">
+    <h5>Create a New User</h5>
+    <small class="text text-muted">You can create a new user in this section.</small>
+    <hr />
+    <div class="row">
+        <div class="col-4">
+            <span class="form form-text">First Name:</span>
+            <input type="text" class="form form-control form-control-sm" ng-model="userFirstName" />
+        </div>
+        <div class="col-4">
+            <span class="form form-text">Last Name:</span>
+            <input type="text" class="form form-control form-control-sm" ng-model="userLastName" />
+        </div>
+        <div class="col-4">
+            <span class="form form-text">Department:</span>
+            <input type="text" class="form form-control form-control-sm" ng-model="userDepartmentName" />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-8">
+            <span class="form form-text">Email:</span>
+            <input type="text" class="form form-control form-control-sm" ng-model="userEmail" />
+        </div>
+        <div class="col-2 mt-3">
+            <span class="form form-text">Can VPN Access:</span>
+        </div>
+        <div class="col-2 mt-4">
+            <input type="checkbox" class="form-check-input" ng-model="userCanVpnAccess" />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <span class="form form-text">Company Name:</span>
+            <select class="form form-control form-control-sm" ng-model="backupUnitCustomerCompanyName" ng-options="customer.companyName for customer in customerList">
+                <option value="" disabled>...</option>
+            </select>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12 text-center mt-4 bg-light">
+            <button class="btn btn-sm btn-primary" ng-click="addUser()">Save</button>
+            <a class="btn btn-sm btn-danger" href="/">Cancel</a>
+        </div>
+    </div>
+
+
+    <div class="container" ng-controller="CustomerController" ng-init="getAllUser()">
+        <div class="row mt-5">
+            <div class="container">
+                <h5>User List</h5>
+                <small class="text text-muted">You can list all users in this section.</small>
+                <hr />
+                <table class="table table-hover table-sm">
+                    <tr>
+                        <th>Id</th>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Department</th>
+                        <th>Company</th>
+                        @*<th>VPN Access</th>*@
+                        <th>Email</th>
+                        <th>Update</th>
+                        <th>Delete</th>
+                    </tr>
+                    <tr ng-repeat="user in userList">
+                        <td>{{user.id}}</td>
+                        <td>{{user.firstName}}</td>
+                        <td>{{user.lastName}}</td>
+                        <td>{{user.departmentName}}</td>
+                        <td>{{user.customer.companyName}}</td>
+                        @*<td>{{user.canVpnAccess}}</td>*@
+                        <td>{{user.email}}</td>
+                        <td><button class="btn btn-outline-primary btn-sm" data-toggle="modal" data-target="#updateUserModal" ng-click="fetchUpdateDataForUser(user)">Update</button></td>
+                        <td><button class="btn btn-outline-danger btn-sm" ng-confirm-click="" confirmed-click="deleteUser(user)">Delete</button></td>
+                    </tr>
+                </table>
+                <div class="row">
+                    <div class="col-2">
+                        <span class="text-muted form-text">Hide Update Section</span>
+                    </div>
+                    <div class="col-10">
+                        <input type="checkbox" class="form-check-input" ng-model="showUserModal" />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-5">
+            <div class="container" ng-hide="showUserModal">
+                <h5>Update User</h5>
+                <small class="text text-muted">You can update the user in this section.</small>
+                <hr />
+                <div class="row">
+                    <div class="col-4">
+                        <span class="form form-text">First Name:</span>
+                        <input type="text" class="form form-control form-control-sm" ng-model="users.firstName" />
+                    </div>
+                    <div class="col-4">
+                        <span class="form form-text">Last Name:</span>
+                        <input type="text" class="form form-control form-control-sm" ng-model="users.lastName" />
+                    </div>
+                    <div class="col-4">
+                        <span class="form form-text">Department:</span>
+                        <input type="text" class="form form-control form-control-sm" ng-model="users.department" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-8">
+                        <span class="form form-text">Email:</span>
+                        <input type="text" class="form form-control form-control-sm" ng-model="users.email" />
+                    </div>
+                    <div class="col-2 mt-3">
+                        <span class="form form-text">Can VPN Access:</span>
+                    </div>
+                    <div class="col-2 mt-4">
+                        <input type="checkbox" class="form-check-input" ng-model="users.canVpnAccess" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <span class="form form-text">Company Name:</span>
+                        <select class="form form-control form-control-sm" ng-model="backupUnitCustomerCompanyName" ng-options="customer.companyName for customer in customerList">
+                            <option value="" disabled>...</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 text-center mt-4 bg-light">
+                        <button class="btn btn-sm btn-primary" ng-click="updateUser(users.id)">Update</button>
+                        <a class="btn btn-sm btn-danger" href="/">Cancel</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+<div class="modal fade" id="updateUserModal" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Update User</h5>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-12">
+                        <label for="txtUserId" class="for form-text">User Id:</label>
+                        <input type="text" id="txtUserId" class="form-control form-control-sm" readonly />
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <label for="txtFirstName" class="for form-text">First Name:</label>
+                        <input type="text" id="txtFirstName" class="form-control form-control-sm" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <label for="txtLastName" class="for form-text">Last Name:</label>
+                        <input type="text" id="txtLastName" class="form-control form-control-sm" />
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-12 text-center">
+                        <button class="btn btn-sm btn-success">Save</button>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

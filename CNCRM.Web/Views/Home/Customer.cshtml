@@ -1,0 +1,255 @@
+﻿
+<div class="container pt-3 shadow-lg p-3 mb-5 bg-white rounded" ng-controller="CustomerController" ng-init="init()">
+    <h5>Create a New Customer</h5>
+    <small class="text text-muted">Please fill out the blank controls at the below.</small>
+    <hr />
+    <div class="row">
+        <div class="col-1">
+            <label class="form-text" for="cbxCustomerType">Type:</label>
+            <select class="form form-control form-control-sm" id="cbxCustomerType" ng-model="customer.type">
+                <option value="" disabled>...</option>
+                <option value="Firma">Firma</option>
+                <option value="Şahış">Şahış</option>
+            </select>
+        </div>
+        <div class="col-11">
+            <label for="txtCompanyName" class="for form-text">Company Name:</label>
+            <input type="text" id="txtCompanyName" class="form-control form-control-sm" ng-model="customer.companyName" />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-6">
+            <label for="txtContactName" class="for form-text">City:</label>
+            <input type="text" id="txtContactName" class="form-control form-control-sm" ng-model="customer.city" />
+        </div>
+        <div class="col-6">
+            <label for="txtContactName" class="for form-text">Contact Name:</label>
+            <input type="text" id="txtContactName" class="form-control form-control-sm" ng-model="customer.contactName" />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <label for="txtAddress" class="for form-text">Address:</label>
+            <input type="text" class="form-control form-control-sm" ng-model="customer.address" />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-3">
+            <label for="txtEmail" class="for form-text">Email:</label>
+            <input type="email" class="form-control form-control-sm" placeholder="mailadresim@sirket.com" ng-model="customer.email" />
+        </div>
+        <div class="col-3">
+            <label for="txtPhone" class="for form-text">Phone:</label>
+            <input type="tel" id="txtPhone" class="form-control form-control-sm" placeholder="+90-555-555-55-55" ng-model="customer.phone" />
+        </div>
+        <div class="col-3">
+            <label for="txtFax" class="for form-text">Fax:</label>
+            <input type="tel" id="txtFax" class="form-control form-control-sm" placeholder="+90-555-555-55-56" ng-model="customer.fax" />
+        </div>
+        <div class="col-3">
+            <label for="txtMobilePhone" class="for form-text">Mobile Phone:</label>
+            <input type="tel" id="txtMobilePhone" class="form-control form-control-sm" placeholder="+90-555-555-55-57" ng-model="customer.mobile" />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-4">
+            <label for="txtSectorName" class="for form-text">Sector Name:</label>
+            <input type="text" class="form-control form-control-sm" id="txtSectorName" ng-model="customer.sectorName">
+        </div>
+        <div class="col-4">
+            <label for="txtTaxNumber" class="for form-text">Tax Number:</label>
+            <input type="text" class="form-control form-control-sm" id="txtTaxNumber" ng-model="customer.taxNumber" />
+        </div>
+        <div class="col-4">
+            <label for="txtTaxOffice" class="for form-text">Tax Office:</label>
+            <input type="text" class="form-control form-control-sm" id="txtTaxOffice" ng-model="customer.taxOffice" />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-6">
+            <label for="txtWebSite" class="for form-text">Web Site:</label>
+            <input type="text" class="form-control form-control-sm" id="txtWebSite" ng-model="customer.webSite" />
+        </div>
+        <div class="col-6">
+            <label for="txtPostCode" class="for form-text">Post Code:</label>
+            <input type="text" class="form-control form-control-sm" id="txtPostCode" ng-model="customer.postCode" />
+        </div>
+        <div class="container mt-4">
+            <div class="row">
+                <div class="col-md-12 text-center bg-light">
+                    <button class="btn btn-primary btn-sm" ng-click="addCustomer()">Save</button>
+                    <a href="#!/" class="btn btn-danger btn-sm">Cancel</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-5">
+        <div class="container">
+            <h5>Customer List</h5>
+            <small class="text text-muted">You can list all customer in this section.</small>
+            <hr />
+            <table class="table table-hover table-sm">
+                <tr>
+                    <th>Id</th>
+                    <th>Company Name</th>
+                    <th>City</th>
+                    <th>Contact Name</th>
+                    <th>Email</th>
+                    <th>Web Site</th>
+                    <th>Update</th>
+                    <th>Delete</th>
+                </tr>
+                <tr ng-repeat="customer in customerList">
+                    <td>{{customer.id}}</td>
+                    <td>{{customer.companyName}}</td>
+                    <td>{{customer.city}}</td>
+                    <td>{{customer.contactName}}</td>
+                    <td>{{customer.email}}</td>
+                    <td>{{customer.webSite}}</td>
+                    <td><button class="btn btn-outline-primary btn-sm" ng-click="fetchUpdateDataForCustomer(customer)">Update</button></td>
+                    <td><button class="btn btn-outline-danger btn-sm" ng-confirm-click="" confirmed-click="deleteCustomer(customer.id)">Delete</button></td>
+                </tr>
+            </table>
+            <div class="row">
+                <div class="col-2">
+                    <span class="text-muted form-text">Hide Update Section</span>
+                </div>
+                <div class="col-10">
+                    <input type="checkbox" class="form-check-input" ng-model="enableEmployeeUpdateModal" />
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-5">
+        <div class="container" ng-hide="enableEmployeeUpdateModal">
+            <h5>Update Customer</h5>
+            <small class="text text-muted">You can update the customer in this section.</small>
+            <hr />
+            <div class="row">
+                <div class="col-1">
+                    <label class="form-text" for="cbxCustomerType">Type:</label>
+                    <select class="form-select form-select-sm" id="cbxCustomerType" ng-model="customers.type">
+                        <option value="" disabled>...</option>
+                        <option value="Firma">Firma</option>
+                        <option value="Şahış">Şahış</option>
+                    </select>
+                </div>
+                <div class="col-11">
+                    <label for="txtCompanyName" class="for form-text">Company Name:</label>
+                    <input type="text" id="txtCompanyName" class="form-control form-control-sm" ng-model="customers.companyName" />
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    <label for="txtContactName" class="for form-text">City:</label>
+                    <input type="text" id="txtContactName" class="form-control form-control-sm" ng-model="customers.city" />
+                </div>
+                <div class="col-6">
+                    <label for="txtContactName" class="for form-text">Contact Name:</label>
+                    <input type="text" id="txtContactName" class="form-control form-control-sm" ng-model="customers.contactName" />
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <label for="txtAddress" class="for form-text">Address:</label>
+                    <input type="text" class="form-control form-control-sm" ng-model="customers.address" />
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-3">
+                    <label for="txtEmail" class="for form-text">Email:</label>
+                    <input type="email" class="form-control form-control-sm" placeholder="mailadresim@sirket.com" ng-model="customers.email" />
+                </div>
+                <div class="col-3">
+                    <label for="txtPhone" class="for form-text">Phone:</label>
+                    <input type="tel" id="txtPhone" class="form-control form-control-sm" placeholder="+90-555-555-55-55" ng-model="customers.phone" />
+                </div>
+                <div class="col-3">
+                    <label for="txtFax" class="for form-text">Fax:</label>
+                    <input type="tel" id="txtFax" class="form-control form-control-sm" placeholder="+90-555-555-55-56" ng-model="customers.fax" />
+                </div>
+                <div class="col-3">
+                    <label for="txtMobilePhone" class="for form-text">Mobile Phone:</label>
+                    <input type="tel" id="txtMobilePhone" class="form-control form-control-sm" placeholder="+90-555-555-55-57" ng-model="customers.mobile" />
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-4">
+                    <label for="txtSectorName" class="for form-text">Sector Name:</label>
+                    <input type="text" class="form-control form-control-sm" id="txtSectorName" ng-model="customers.sectorName">
+                </div>
+                <div class="col-4">
+                    <label for="txtTaxNumber" class="for form-text">Tax Number:</label>
+                    <input type="text" class="form-control form-control-sm" id="txtTaxNumber" ng-model="customers.taxNumber" />
+                </div>
+                <div class="col-4">
+                    <label for="txtTaxOffice" class="for form-text">Tax Office:</label>
+                    <input type="text" class="form-control form-control-sm" id="txtTaxOffice" ng-model="customers.taxOffice" />
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    <label for="txtWebSite" class="for form-text">Web Site:</label>
+                    <input type="text" class="form-control form-control-sm" id="txtWebSite" ng-model="customers.webSite" />
+                </div>
+                <div class="col-6">
+                    <label for="txtPostCode" class="for form-text">Post Code:</label>
+                    <input type="text" class="form-control form-control-sm" id="txtPostCode" ng-model="customers.postCode" />
+                </div>
+                <div class="container mt-4">
+                    <div class="row">
+                        <div class="col-md-12 text-center bg-light">
+                            <button class="btn btn-primary btn-sm" ng-click="updateCustomer(customers.id)">Update</button>
+                            <a href="#!/" class="btn btn-danger btn-sm">Cancel</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="modal fade" id="updateUserModal" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Update User</h5>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-12">
+                        <label for="txtUserId" class="for form-text">User Id:</label>
+                        <input type="text" id="txtUserId" class="form-control form-control-sm" readonly />
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <label for="txtFirstName" class="for form-text">First Name:</label>
+                        <input type="text" id="txtFirstName" class="form-control form-control-sm" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <label for="txtLastName" class="for form-text">Last Name:</label>
+                        <input type="text" id="txtLastName" class="form-control form-control-sm" />
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-12 text-center">
+                        <button class="btn btn-sm btn-success">Save</button>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

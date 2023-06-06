@@ -1,0 +1,93 @@
+﻿@*<script src="~/js/test.js"></script>*@
+
+
+<script>
+    console.log('Ahmet Can Bolat');
+    //var table = document.getElementById("table");
+    //for (var i = 1; i < table.rows.length; i++) {
+    //    table.rows[i].onclick = function () {
+    //        //rIndex = this.rowIndex;
+    //        document.getElementById("fname").value = this.cells[0].innerHTML;
+    //        document.getElementById("lname").value = this.cells[1].innerHTML;
+    //        document.getElementById("age").value = this.cells[2].innerHTML;
+    //    };
+    //}
+</script>
+
+
+
+<div class="container pt-3 shadow-lg p-3 mb-5 bg-white rounded">
+    <h6>JavaScript</h6>
+    <small class="text text-muted">Javascript Send Table Data to Form Control</small>
+    <hr />
+    <div class="row">
+        <div class="col-2">
+            <span>First Name:</span>
+        </div>
+        <div class="col-10 mb-2">
+            <input type="text"
+                   name="fname"
+                   id="fname"
+                   class="form-control form-control-sm"
+                   readonly />
+        </div>
+        <div class="col-2">
+            <span>Last Name:</span>
+        </div>
+        <div class="col-10 mb-2">
+            <input type="text"
+                   name="lname"
+                   id="lname"
+                   class="form-control form-control-sm"
+                   readonly />
+        </div>
+        <div class="col-2">
+            <span>Age:</span>
+        </div>
+        <div class="col-10">
+            <input type="text"
+                   name="age"
+                   id="age"
+                   class="form-control form-control-sm"
+                   readonly />
+        </div>
+    </div>
+    <table id="table" class="table table-hover mt-3 table-sm">
+        <tr>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Age</th>
+        </tr>
+
+        <tr>
+            <td>FN1</td>
+            <td>LN1</td>
+            <td>10</td>
+        </tr>
+
+        <tr>
+            <td>FN2</td>
+            <td>LN2</td>
+            <td>20</td>
+        </tr>
+
+        <tr>
+            <td>FN3</td>
+            <td>LN3</td>
+            <td>30</td>
+        </tr>
+
+        <tr>
+            <td>FN4</td>
+            <td>LN4</td>
+            <td>40</td>
+        </tr>
+
+        <tr>
+            <td>FN5</td>
+            <td>LN5</td>
+            <td>50</td>
+        </tr>
+    </table>
+</div>
+
